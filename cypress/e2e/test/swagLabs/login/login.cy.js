@@ -1,0 +1,55 @@
+/// <reference types="cypress" />
+import { LoginPage } from "../../../../support/pages/Login.Page"
+import { ProductPage } from "../../../../support/pages/Product.Page"
+
+describe("Casos de prueba: Inicio de sesion", ()=>{
+
+
+    let the;
+    before("Load data", ()=>{
+        cy.fixture("data").then((data)=>{
+            the = data
+        })
+    })
+
+    beforeEach("Precondiciones", ()=>{
+        cy.visit(the.swagLabs_url)
+    
+    })
+
+    it("Iniciar sesion con credenciales validas", ()=>{
+
+        
+        LoginPage.typeUsername(the.standard_user)
+        LoginPage.typePassword(the.password)
+        LoginPage.elements.login_button().click()
+        ProductPage.elements.swagLabs_logo().should("exist").and("contain",the.swagLabs_logo)
+        ProductPage.elements.products_title().should("exist").and("contain","Products")
+
+    })
+
+    it.skip("Intentar iniciar sesion con contraseña incorrecta", ()=>{
+
+
+        LoginPage.typeUsername(the.standard_user)
+        LoginPage.typePassword(the.wrong_password)
+        LoginPage.elements.login_button().click()
+        LoginPage.elements.error_message().should("exist").and("contain",the.wrong_credentials_message)
+
+
+    })
+
+    it.skip("Intentar iniciar sesion con credenciales de usuario bloqueado", ()=>{
+
+
+        LoginPage.typeUsername(the.locked_user)
+        LoginPage.typePassword(the.password)
+        LoginPage.elements.login_button().click()
+        LoginPage.elements.error_message().should("exist").and("contain",the.locked_user_message)
+
+
+    })
+
+
+
+})
