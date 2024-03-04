@@ -2,7 +2,7 @@
 import { LoginPage } from "../../../../support/pages/Login.Page"
 import { ProductPage } from "../../../../support/pages/Product.Page"
 
-describe("Casos de prueba: Inicio de sesion", ()=>{
+describe("Casos de pruebas: Inicio de sesion", ()=>{
 
 
     let the;
@@ -28,7 +28,7 @@ describe("Casos de prueba: Inicio de sesion", ()=>{
 
     })
 
-    it.skip("Intentar iniciar sesion con contraseña incorrecta", ()=>{
+    it("Intentar iniciar sesion con contraseña incorrecta", ()=>{
 
 
         LoginPage.typeUsername(the.standard_user)
@@ -39,7 +39,7 @@ describe("Casos de prueba: Inicio de sesion", ()=>{
 
     })
 
-    it.skip("Intentar iniciar sesion con credenciales de usuario bloqueado", ()=>{
+    it("Intentar iniciar sesion con credenciales de usuario bloqueado", ()=>{
 
 
         LoginPage.typeUsername(the.locked_user)

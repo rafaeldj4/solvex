@@ -17,6 +17,11 @@ class Login {
         this.elements.password_input().type(password)
     }
 
+    login(username,password){
+        this.elements.username_Input().type(username)
+        this.elements.password_input().type(password)
+        this.elements.login_button().click()
+    }
 
 }
 
