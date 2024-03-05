@@ -50,6 +50,18 @@ describe("Casos de pruebas: Inicio de sesion", ()=>{
 
     })
 
+    it("Validar cierre de sesion", ()=>{
+
+
+        LoginPage.login(the.standard_user,the.password)
+        ProductPage.elements.burger_menu().click()
+        ProductPage.elements.logout_button().click()
+        cy.url().should("eq",the.swagLabs_url)
+
+
+
+    })
+
 
 
 })
