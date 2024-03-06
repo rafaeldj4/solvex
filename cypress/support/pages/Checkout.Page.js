@@ -12,7 +12,8 @@ class checkout {
         information: {
             firstName: ()=> cy.get('[data-test="firstName"]'),
             lastName: () => cy.get('[data-test="lastName"]'),
-            zipcode: ()=> cy.get('[data-test="postalCode"]')
+            zipcode: ()=> cy.get('[data-test="postalCode"]'),
+            error_message: ()=> cy.get('[data-test="error"]')
             
         },
 
