@@ -12,5 +12,6 @@
   "linkedinUrl": "https://www.linkedin.com/company/sauce-labs/",
   "name": "Rafael",
   "lastname": "Mejia",
-  "zipcode": "25000"
+  "zipcode": "25000",
+  "succesfullOrderComplete_message": "Thank you for your order!"
 }

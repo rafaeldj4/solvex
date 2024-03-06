@@ -10,7 +10,12 @@ class products {
         burger_menu: ()=> cy.get("#react-burger-menu-btn"),
         logout_button: ()=> cy.get("#logout_sidebar_link"),
         inventory_products_button: ()=> cy.get(".btn_inventory"),
-        shopping_car: ()=> cy.get('.shopping_cart_link')
+        shopping_car: ()=> cy.get('.shopping_cart_link'),
+        items_products: ()=> cy.get(".inventory_item"),
+        product_name: () => cy.get(".inventory_item_name"),
+        product_description: ()=> cy.get(".inventory_item_desc"),
+        product_price: ()=> cy.get(".inventory_item_price"),
+        product_addCart_button: ()=> cy.get(".btn_inventory")
         
 
     }
