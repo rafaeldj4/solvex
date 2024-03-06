@@ -109,6 +109,54 @@ describe("Casos de pruebas: Compra de productos", ()=>{
         })
     })
 
+    it("Intentar realizar la compra de un producto sin ingresar los 'datos personales'",()=>{
+
+        ProductPage.elements.items_products().then(productos =>{
+            const indiceAleatorio = Math.floor(Math.random() * productos.length)
+            cy.log(indiceAleatorio)
+            const productoAleatorio = productos.eq(indiceAleatorio)
+
+            //Producto
+            cy.get(productoAleatorio).within(()=>{
+                ProductPage.elements.product_name().invoke("text").as("productName")
+                ProductPage.elements.product_description().invoke("text").as("productDescription")
+                ProductPage.elements.product_price().invoke("text").as("productPrice")
+                ProductPage.elements.product_addCart_button().click()
+            })
+        })
+
+        ProductPage.elements.shopping_car().click()
+
+        cy.get("@productName").then(productName => {
+            cy.log(productName)
+            ProductPage.elements.product_name().then(shoppingCart_product =>{
+                cy.wrap(shoppingCart_product.text()).should("eq",productName)
+            })
+        })
+
+        cy.get("@productDescription").then(productDescription =>{
+            cy.log(productDescription)
+            ProductPage.elements.product_description().then(shoppingCart_product =>{
+                cy.wrap(shoppingCart_product.text()).should("eq",productDescription)
+            })
+        })
+
+        cy.get("@productPrice").then(productPrice =>{
+            cy.log(productPrice)
+            ProductPage.elements.product_price().then(shoppingCart_product =>{
+                cy.wrap(shoppingCart_product.text()).should("eq",productPrice)
+            })
+        })
+
+        //Hacer click en checkout
+        Cart.elements.checkout_button().click()
+        //Hacer click en continue sin ingresar los datos personales
+        Checkout.elements.continue_button().click()
+        //Validar mensaje de error
+        Checkout.pages.information.error_message().should("exist").and("contain","Error: First Name is required")
+
+    })
+
     it("Cancelar la compra de un producto", ()=>{
 
         ProductPage.elements.items_products().then(productos =>{
@@ -194,54 +242,6 @@ describe("Casos de pruebas: Compra de productos", ()=>{
             //Validar que este en la pagina de productos
             ProductPage.elements.products_title().should("exist").and("contain","Products")
             cy.url().should("eq","https://www.saucedemo.com/inventory.html")
-
-    })
-
-    it("Intentar realizar la compra de un producto sin ingresar los 'datos personales'",()=>{
-
-        ProductPage.elements.items_products().then(productos =>{
-            const indiceAleatorio = Math.floor(Math.random() * productos.length)
-            cy.log(indiceAleatorio)
-            const productoAleatorio = productos.eq(indiceAleatorio)
-
-            //Producto
-            cy.get(productoAleatorio).within(()=>{
-                ProductPage.elements.product_name().invoke("text").as("productName")
-                ProductPage.elements.product_description().invoke("text").as("productDescription")
-                ProductPage.elements.product_price().invoke("text").as("productPrice")
-                ProductPage.elements.product_addCart_button().click()
-            })
-        })
-
-        ProductPage.elements.shopping_car().click()
-
-        cy.get("@productName").then(productName => {
-            cy.log(productName)
-            ProductPage.elements.product_name().then(shoppingCart_product =>{
-                cy.wrap(shoppingCart_product.text()).should("eq",productName)
-            })
-        })
-
-        cy.get("@productDescription").then(productDescription =>{
-            cy.log(productDescription)
-            ProductPage.elements.product_description().then(shoppingCart_product =>{
-                cy.wrap(shoppingCart_product.text()).should("eq",productDescription)
-            })
-        })
-
-        cy.get("@productPrice").then(productPrice =>{
-            cy.log(productPrice)
-            ProductPage.elements.product_price().then(shoppingCart_product =>{
-                cy.wrap(shoppingCart_product.text()).should("eq",productPrice)
-            })
-        })
-
-        //Hacer click en checkout
-        Cart.elements.checkout_button().click()
-        //Hacer click en continue sin ingresar los datos personales
-        Checkout.elements.continue_button().click()
-        //Validar mensaje de error
-        Checkout.pages.information.error_message().should("exist").and("contain","Error: First Name is required")
 
     })
 
